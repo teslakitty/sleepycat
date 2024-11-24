@@ -1,0 +1,56 @@
+plugins {
+    alias(libs.plugins.android.application)
+    alias(libs.plugins.kotlin.android)
+}
+
+android {
+    namespace 'com.teslakitty.sleepycat'
+    compileSdk 35
+
+    defaultConfig {
+        applicationId "com.teslakitty.sleepycat"
+        minSdk 21
+        targetSdk 34
+        versionCode 1
+        versionName "1.0"
+
+        testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
+    }
+
+    buildTypes {
+        release {
+            minifyEnabled false
+            proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
+        }
+    }
+    compileOptions {
+        sourceCompatibility JavaVersion.VERSION_11
+        targetCompatibility JavaVersion.VERSION_11
+    }
+    kotlinOptions {
+        jvmTarget = '11'
+    }
+}
+
+dependencies {
+
+    // Core and UI components
+    implementation libs.androidx.core.ktx          // Core extensions for Kotlin
+    implementation libs.androidx.appcompat        // AppCompat library for backward compatibility
+    implementation libs.material                 // Material Design components
+    implementation libs.androidx.activity        // Activity components (such as `ComponentActivity`)
+    implementation libs.androidx.constraintlayout // Layouts using ConstraintLayout
+
+    // Room for local database
+    implementation libs.androidx.room.common      // Room common APIs (for all Room databases)
+    implementation libs.androidx.room.ktx         // Kotlin extensions for Room (for working with Room in Kotlin)
+
+    // Coroutines for background tasks and async operations
+    implementation libs.kotlinx.coroutines.android
+
+    // Testing dependencies
+    testImplementation libs.junit                // JUnit for unit testing
+    androidTestImplementation libs.androidx.junit // JUnit for Android instrumented testing
+    androidTestImplementation libs.androidx.espresso.core // Espresso for UI testing
+
+}
