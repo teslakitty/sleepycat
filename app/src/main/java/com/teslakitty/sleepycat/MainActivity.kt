@@ -15,6 +15,7 @@ import androidx.core.content.ContextCompat
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
+import kotlinx.coroutines.withContext
 
 class MainActivity : AppCompatActivity() {
 
@@ -89,7 +90,6 @@ class MainActivity : AppCompatActivity() {
         }
         mediaRecorder = null
 
-        // Save the story
         saveStory(storyTitle.text.toString(), storyContent.text.toString())
         Toast.makeText(this, "Recording saved: $audioFilePath", Toast.LENGTH_SHORT).show()
     }
@@ -115,10 +115,18 @@ class MainActivity : AppCompatActivity() {
         val story = Story(title = title, content = content, audioPath = audioFilePath)
 
         CoroutineScope(Dispatchers.IO).launch {
-            StoryDatabase.getDatabase(this@MainActivity).storyDao().insertStory(story)
+            try {
+                // Insert the story into the database
+                StoryDatabase.getDatabase(this@MainActivity).storyDao().insertStory(story)
+                withContext(Dispatchers.Main) {
+                    Toast.makeText(this@MainActivity, "Story saved!", Toast.LENGTH_SHORT).show()
+                }
+            } catch (e: Exception) {
+                withContext(Dispatchers.Main) {
+                    Toast.makeText(this@MainActivity, "Error saving story: ${e.message}", Toast.LENGTH_SHORT).show()
+                }
+            }
         }
-
-        Toast.makeText(this, "Story saved!", Toast.LENGTH_SHORT).show()
     }
 
     override fun onDestroy() {

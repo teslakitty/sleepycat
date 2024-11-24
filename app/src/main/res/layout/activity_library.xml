@@ -6,7 +6,6 @@
     android:layout_height="match_parent"
     android:padding="16dp">
 
-    <!-- Example content of the Library screen -->
     <TextView
         android:id="@+id/libraryTitle"
         android:layout_width="wrap_content"
@@ -15,5 +14,4 @@
         android:textSize="24sp"
         android:layout_gravity="center" />
 
-    <!-- You can add more content here -->
 </LinearLayout>

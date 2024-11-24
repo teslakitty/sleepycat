@@ -1,3 +1,8 @@
 <resources>
     <string name="app_name">sleepycat</string>
+    <string name="story_content">Story Content</string>
+    <string name="story_title">Story Title</string>
+    <string name="record_narration">Record Narration</string>
+    <string name="play">Play</string>
+    <string name="go_to_library">Go to Library</string>
 </resources>
